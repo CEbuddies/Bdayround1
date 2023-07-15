@@ -1,5 +1,6 @@
 import streamlit as st
 from ques_cl import questions
+import time
 
 class Question:
     def __init__(self, text, options, correct_option):
@@ -24,6 +25,8 @@ def main():
     st.title("Round 1 birthday quiz")
     if 'user_responses' not in st.session_state:
         st.session_state.user_responses = []
+    if 'trys' not in st.session_state:
+        st.session_state.trys = 0
 
     st.session_state.user_responses = ['' for i in range(5)]
 
@@ -39,7 +42,9 @@ def main():
 
         score = calculate_score(questions, st.session_state.user_responses)
         st.subheader("Quiz Result")
+        time.sleep(3**st.session_state.trys)
         st.write(f"You scored {score}/{len(questions)}")
+        st.session_state.trys += 1
 
 if __name__ == "__main__":
     
